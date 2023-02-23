@@ -13,7 +13,7 @@ function App() {
       </Link>
 
       <Link to="/ostukorv">
-        <button className="nupp">Nupp</button>
+        <button className="nupp">Ostukorvi</button>
       </Link>
 
       <Link to="/lisa-toode">
