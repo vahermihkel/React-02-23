@@ -1,5 +1,8 @@
 import './App.css';
 import { Link, Route, Routes } from 'react-router-dom';
+import Avaleht from './pages/Avaleht';
+import Ostukorv from './pages/Ostukorv';
+import LisaToode from './pages/LisaToode';
 
 // tag --> <div>   </div>   komplektide jaoks
 // <img /> self-closing    tema omadused lähevadki tema sisse
@@ -8,7 +11,7 @@ import { Link, Route, Routes } from 'react-router-dom';
 function App() {
   return (
     <div className="App">
-      <Link to="/avaleht">
+      <Link to="/">
         <img className="pilt" src="https://nobecars.com/wp-content/uploads/2022/01/Untitled-2-5-1024x473.png" alt="" />
       </Link>
 
@@ -21,9 +24,9 @@ function App() {
       </Link>
 
       <Routes>
-        <Route path="avaleht" element={<div>123</div>} />
-        <Route path="ostukorv" element={<div>O</div>} />
-        <Route path="lisa-toode" element={<div>LT</div>} />
+        <Route path="" element={ <Avaleht /> } />
+        <Route path="ostukorv" element={ <Ostukorv /> } />
+        <Route path="lisa-toode" element={ <LisaToode /> } />
       </Routes>
     </div>
   );
