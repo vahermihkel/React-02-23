@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef, useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
 
 // tumesinine - JS liigitusega: const, function
 //              väärtus, millel pole jutumärke: true, false, null, undefined
@@ -20,6 +21,7 @@ function Seaded() {
   const [keel, uuendaKeel] = useState(localStorage.getItem("keel"));
   const emailViide = useRef();
   const telefonViide = useRef();
+  const aadressViide = useRef();
 
   const muudaKeelEst = () => {
     uuendaKeel("est");
@@ -38,10 +40,33 @@ function Seaded() {
 
   const salvestaEmail = () => {
     localStorage.setItem("email", emailViide.current.value);
+    if (emailViide.current.value.includes("@") === false) {
+      toast.error("Kontrolli e-mail");
+    } else {
+      toast.success("Email salvestatud!");
+    }
   }
 
+  // js check if string is numbers only
+  // stackoverflow
+  // regex (regular expression --- regulaaravaldis)
   const salvestaTelefon = () => {
     localStorage.setItem("telefon", telefonViide.current.value);
+    if (/^\d+$/.test(telefonViide.current.value) === false) {
+      toast.error("Telefoni number ei koosne ainult numbritest!");
+    } else {
+      toast.success("Telefon salvestatud!");
+    }
+  }
+
+  const salvestaAadress = () => {
+    // salvestab ära brauseri vahemällu, ainult sinu arvutis, selles brauseris, sellel veebilehel
+    localStorage.setItem("aadress", aadressViide.current.value);
+    if (aadressViide.current.value[0] === aadressViide.current.value[0].toLowerCase()) {
+      toast.error("Aadress kirjuta suure algustähega");
+    } else {
+      toast.success("Aadress salvestatud!");
+    }
   }
 
   return (
@@ -54,6 +79,10 @@ function Seaded() {
       <label>Telefoninumber</label>
       <input ref={telefonViide} type="text" />
       <button onClick={salvestaTelefon}>Sisesta</button>
+      <br />
+      <label>Aadress</label>
+      <input ref={aadressViide} type="text" />
+      <button onClick={salvestaAadress}>Sisesta</button>
       <br /><br />
       <button onClick={muudaKeelEst}>Eesti keelseks</button>
       <button onClick={muudaKeelEng}>Inglise keelseks</button>
@@ -61,6 +90,10 @@ function Seaded() {
       { keel === "est" && <div>Leht on eesti keelne</div>}
       { keel === "eng" && <div>Page is in English</div>}
       { keel === "rus" && <div>Pycckij Rsõk</div>}
+      <ToastContainer 
+          position="bottom-right"
+          theme="dark"
+        />
     </div>
   )
 }
