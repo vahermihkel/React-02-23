@@ -17,3 +17,23 @@
 .kuldne {
   color: goldenrod;
 }
+
+.aktiivne-url {
+  font-size: 20px;
+}
+
+.hele-leht {
+  background-color: azure;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.tume-leht {
+  background-color: black;
+  color: white;
+  height: 100%;
+  min-height: 100vh;
+  /* view height - ekraani kõrgus
+  minimaalne selle css klassi kõrgus on ekraani kõrgus view heighites ehk vaate protsentides
+  50vh - 50% ekraani kõrgusest */
+}
