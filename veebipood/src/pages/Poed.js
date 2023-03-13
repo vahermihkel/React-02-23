@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
+import poedFailist from "../data/poed.json";
 
 function Poed() {
-  const [poed, uuendaPoed] = useState(["Ülemiste","Viimsi","Rocca al Mare","Magistrali","Vesse","Kristiine","Järveotsa"]);
+  const [poed, uuendaPoed] = useState(poedFailist);
 
   const paneOriginaali = () => {
-    uuendaPoed(["Ülemiste","Viimsi","Rocca al Mare","Magistrali","Vesse","Kristiine","Järveotsa"]);
+    uuendaPoed(poedFailist);
   }
 
   const sorteeriAZ = () => {
@@ -58,6 +59,21 @@ function Poed() {
     uuendaPoed(tulem); 
   }
 
+  const muudaSuurteksTahtedeks = () => {
+    const tulem = poed.map(yksPood => yksPood.toUpperCase());
+    uuendaPoed(tulem);
+  }
+
+  const muudaKoikITahedOTaheks = () => {
+    const tulem = poed.map(yksPood => yksPood.replaceAll("i", "o"));
+    uuendaPoed(tulem);
+  }
+
+  const muudaKoigileKriipsudEtte = () => {
+    const tulem = poed.map(yksPood => "--" + yksPood);
+    uuendaPoed(tulem);
+  }
+
   return (
     <div>
       <button onClick={paneOriginaali}>Pane tagasi originaali</button>
@@ -73,7 +89,11 @@ function Poed() {
       <button onClick={filtreeri9Tahelised}>Filtreeri täpselt 9 tähelised</button>
       <button onClick={filtreeriIsSisaldavad}>Filtreeri sisaldab lühendit 'is'</button>
       <button onClick={filtreeriKolmasTahtI}>Filtreeri kolmas täht 'i'</button>
-      {poed.map(yksPood => <div>{yksPood}</div>)}
+      <br /><br />
+      <button onClick={muudaSuurteksTahtedeks}>Muuda suurteks tähtedeks</button>
+      <button onClick={muudaKoikITahedOTaheks}>Muuda i tähed o tähtedeks</button>
+      <button onClick={muudaKoigileKriipsudEtte}>Muuda i tähed o tähtedeks</button>
+      {poed.map((yksPood, jarjekorraNumber) => <div key={jarjekorraNumber}>{yksPood}</div>)}
       <div>----------------------</div>
       <div>Ülemiste</div>
       <div>Viimsi</div>

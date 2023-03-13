@@ -23,27 +23,35 @@ function Seaded() {
   const telefonViide = useRef();
   const aadressViide = useRef();
 
-  const muudaKeelEst = () => {
-    uuendaKeel("est");
-    localStorage.setItem("keel","est");
-  }
+  // siin on VALIKU KÜSIMUS, kas teha 1 või 3 funktsiooni
+  // kui onClick on .map() sees, siis PEAN TEGEMA 1 funktsiooni mis sulgude seest võtab muutuja
 
-  const muudaKeelEng = () => {
-    uuendaKeel("eng");
-    localStorage.setItem("keel","eng");
-  }
+  // const muudaKeelEst = () => {
+  //   uuendaKeel("est");
+  //   localStorage.setItem("keel","est");
+  // }
 
-  const muudaKeelRus = () => {
-    uuendaKeel("rus");
-    localStorage.setItem("keel","rus");
+  // const muudaKeelEng = () => {
+  //   uuendaKeel("eng");
+  //   localStorage.setItem("keel","eng");
+  // }
+
+  // const muudaKeelRus = () => {
+  //   uuendaKeel("rus");
+  //   localStorage.setItem("keel","rus");
+  // }
+
+  const muudaKeel = (uusKeel) => {
+    uuendaKeel(uusKeel);
+    localStorage.setItem("keel",uusKeel);
   }
 
   const salvestaEmail = () => {
-    localStorage.setItem("email", emailViide.current.value);
     if (emailViide.current.value.includes("@") === false) {
       toast.error("Kontrolli e-mail");
     } else {
       toast.success("Email salvestatud!");
+      localStorage.setItem("email", emailViide.current.value);
     }
   }
 
@@ -51,21 +59,21 @@ function Seaded() {
   // stackoverflow
   // regex (regular expression --- regulaaravaldis)
   const salvestaTelefon = () => {
-    localStorage.setItem("telefon", telefonViide.current.value);
     if (/^\d+$/.test(telefonViide.current.value) === false) {
       toast.error("Telefoni number ei koosne ainult numbritest!");
     } else {
       toast.success("Telefon salvestatud!");
+      localStorage.setItem("telefon", telefonViide.current.value);
     }
   }
 
   const salvestaAadress = () => {
     // salvestab ära brauseri vahemällu, ainult sinu arvutis, selles brauseris, sellel veebilehel
-    localStorage.setItem("aadress", aadressViide.current.value);
     if (aadressViide.current.value[0] === aadressViide.current.value[0].toLowerCase()) {
       toast.error("Aadress kirjuta suure algustähega");
     } else {
       toast.success("Aadress salvestatud!");
+      localStorage.setItem("aadress", aadressViide.current.value);
     }
   }
 
@@ -84,9 +92,9 @@ function Seaded() {
       <input ref={aadressViide} type="text" />
       <button onClick={salvestaAadress}>Sisesta</button>
       <br /><br />
-      <button onClick={muudaKeelEst}>Eesti keelseks</button>
-      <button onClick={muudaKeelEng}>Inglise keelseks</button>
-      <button onClick={muudaKeelRus}>Vene keelseks</button>
+      <button onClick={() => muudaKeel("est")}>Eesti keelseks</button>
+      <button onClick={() => muudaKeel("eng")}>Inglise keelseks</button>
+      <button onClick={() => muudaKeel("rus")}>Vene keelseks</button>
       { keel === "est" && <div>Leht on eesti keelne</div>}
       { keel === "eng" && <div>Page is in English</div>}
       { keel === "rus" && <div>Pycckij Rsõk</div>}
