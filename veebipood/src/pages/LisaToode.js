@@ -1,4 +1,5 @@
 import React, { useRef, useState } from 'react'
+import tootedFailist from "../data/tooted.json";
 
 function LisaToode() {  // Reacti hookid
   const [sonum, uuendaSonum] = useState("Lisa uus toode!"); // oleku muutmine
@@ -11,6 +12,7 @@ function LisaToode() {  // Reacti hookid
       uuendaSonum("Tühja nimetusega ei saa toodet lisada!");
     } else {
       uuendaSonum("Toode lisatud " + inputiLuger.current.value);
+      tootedFailist.push(inputiLuger.current.value);
     }
   }
 

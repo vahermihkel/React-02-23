@@ -78,11 +78,33 @@ function App() { // window.location.href ----> JavaScripti sissekirjutatud funkt
         <Route path="poed" element={ <Poed /> } />
         <Route path="tooted" element={ <Tooted /> } />
         <Route path="halda" element={ <HaldaTooted /> } />
-        <Route path="muuda" element={ <MuudaToode /> } />
-        <Route path="yksik-toode" element={ <YksikToode /> } />
+        <Route path="muuda/:index" element={ <MuudaToode /> } />
+        <Route path="yksik-toode/:jrkNr" element={ <YksikToode /> } />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+// LinkedIn
+// MeetFrank
+// Ettevõtete kodulehed
+
+// 1.-1.5a 3 nädalat
+// 6x inimest algajad
+
+// 1-2 kuud tasuta
+// 3-4 kuud miinimum
+// 5-kuud 12aasta 1000 bruto
+// 1.5   1500 bruto
+// 2 2000 bruto
+// 3 3000 bruto
+
+// 1500 bruto
+// 2500 bruto
+
+// 1. kood selgeks saada
+// 2. tööle võetakse (esimesed 6 kuud ei paku ettevõttele väga väärtust)
+//        1-2 aasta pealt
+// 3. ettevõttes esimene kood

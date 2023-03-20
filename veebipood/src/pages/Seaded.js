@@ -14,8 +14,26 @@ import { ToastContainer, toast } from 'react-toastify';
 // sulud: loogelised, tavalised, kandilised --- on kollased, lillad, sinised
 //      visual studio code-s on sisseehitatud, et samat värvi sulg paneb kinni sama värvi sulu
 // {{{{{{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}}}}}}
-// kollane, liulla, sinine, kollane, lilla, sinine, kollane, lilla, sinine
+// kollane, lilla, sinine, kollane, lilla, sinine, kollane, lilla, sinine
 // tumeroheline - kommentaar
+
+// () -> funktsiooni, mis käivitub, kollase sõna taga
+//       if sees kontrollime kas tõene või väär
+// {} -> JavaScriptis koodiblokki   const nimi = () => {}    if () {} else {}
+//       HTMLs JavaScripti (dünaamikat)   
+//                                           {} = useParams    <- mitu tk pole määratletud
+// [] -> array'd ehk väärtuste kogum   [keel, muudaKeel] = useState <- peab olema täpselt 2tk
+// =  -> annan väärtust
+// ==  -> kontrollin kas vasak ja parem pool on võrdne ilma tüübi kontrollita (react annab warningu)
+// === -> kontrollin kas vasak ja parem pool on võrdne
+// && -> kui vasakul on tõde, siis parem ilmub
+// || -> kui vasakul on tühjus (null), siis võetakse kasutusele parem
+// ; -> rea lõpu tähistus
+// ?  :   ->  tavaliselt className sees   KUI ON TÕDE ? "Võetakse see" : "Ei ole tõde, võetakse see"
+//        lühendatud if else , ternary operator
+// >=   suurem väiksem
+// <    väiksem
+// .    saab välja kutsuda omadusi (   .length    .getItem  )
 
 function Seaded() {
   const [keel, uuendaKeel] = useState(localStorage.getItem("keel"));
