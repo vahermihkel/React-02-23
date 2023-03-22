@@ -13,8 +13,10 @@ function HaldaTooted() {
   return (
     <div>
       {tooted.map((toode, index) => 
-        <div key={index}>
-          {toode}
+        <div key={index} className={ toode.aktiivne === true ? "aktiivne" : "mitteaktiivne" } >
+          <img className="pilt" src={toode.pilt} alt="" />
+          <div>{toode.nimi}</div>
+          <div>{toode.hind}</div>
           <button onClick={() => kustuta(index)}>Kustuta</button>
           <Link to={"/muuda/" + index}> <button>Muuda</button> </Link>
         </div>)}

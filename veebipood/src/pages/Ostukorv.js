@@ -24,13 +24,21 @@ function Ostukorv() {
     uuendaOstukorv(ostukorvFailist.slice());
   }
 
+  const arvutaKogusumma = () => {
+    let summa = 0;
+    ostukorv.forEach(toode => summa = summa + toode.hind);
+    return summa;
+  }
+
   return (
     <div>
       {ostukorv.length > 0 && <button onClick={tyhjenda}>Tühjenda</button>}
       {ostukorv.length > 0 && <div>Ostukorvis kokku {ostukorv.length} eset</div> }
       {ostukorv.map((toode, jrkNr) => 
         <div key={jrkNr}>
-          {toode} 
+          <img className="pilt" src={toode.pilt} alt="" />
+          <div>{toode.nimi}</div>
+          <div>{toode.hind}</div>
           <button onClick={() => lisa(toode)}>+</button>
           <button onClick={() => kustuta(jrkNr)}>x</button>
         </div> )}
@@ -39,6 +47,10 @@ function Ostukorv() {
           Ostukorv on tühi.
           <Link to="/">Tooteid lisama</Link>
         </div>}
+      {ostukorv.length > 0 && 
+        <div className={ arvutaKogusumma() > 500000 ? "kuldne" : undefined }>
+          Kokku: {arvutaKogusumma()} €
+        </div> }
     </div>
   )
 }

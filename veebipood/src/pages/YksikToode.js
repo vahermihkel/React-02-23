@@ -22,8 +22,10 @@ function YksikToode() {
 
   return (
     <div>
+      <img src={leitud.pilt} alt="" />
       <div>Klikitud toote järjekorranumber: {jrkNr}</div>
-      <div>Klikitud toote nimi: {leitud}</div>
+      <div>Klikitud toote nimi: {leitud.nimi}</div>
+      <div>Klikitud toote hind: {leitud.hind}</div>
       <div>Tema kirjeldus....</div>
       <div>Koostisosad: ..   ..   ..</div>
     </div>

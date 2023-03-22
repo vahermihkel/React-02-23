@@ -1,5 +1,5 @@
 .pilt {
-  height: 100px;
+  width: 150px;
 }
 
 .pilt:hover {
@@ -36,4 +36,14 @@
   /* view height - ekraani kõrgus
   minimaalne selle css klassi kõrgus on ekraani kõrgus view heighites ehk vaate protsentides
   50vh - 50% ekraani kõrgusest */
+}
+
+.aktiivne {
+  background-color: rgb(241, 248, 241);
+  border: 1px solid green;
+}
+
+.mitteaktiivne {
+  background-color: rgb(249, 244, 244);
+  border: 1px solid red;
 }
