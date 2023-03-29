@@ -4,16 +4,17 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { useTranslation } from 'react-i18next';
 import './App.css';
-import HomePage from './pages/HomePage';
-import Cart from './pages/Cart';
-import Shops from './pages/Shops';
-import ContactUs from './pages/ContactUs';
-import AdminHome from './pages/AdminHome';
-import AddProduct from './pages/AddProduct';
-import EditProduct from './pages/EditProduct';
-import MaintainProducts from './pages/MaintainProducts';
-import MaintainShops from './pages/MaintainShops';
-import MaintainCategories from './pages/MaintainCategories';
+import HomePage from './pages/global/HomePage';
+import Cart from './pages/global/Cart';
+import Shops from './pages/global/Shops';
+import ContactUs from './pages/global/ContactUs';
+import AdminHome from './pages/admin/AdminHome';
+import AddProduct from './pages/admin/AddProduct';
+import EditProduct from './pages/admin/EditProduct';
+import MaintainProducts from './pages/admin/MaintainProducts';
+import MaintainShops from './pages/admin/MaintainShops';
+import MaintainCategories from './pages/admin/MaintainCategories';
+import NotFound from './pages/global/NotFound';
 
 function App() {  
   // Firebase üles ---> standartne
@@ -48,7 +49,7 @@ function App() {
             <img className="lang" src="/english.png" onClick={() => changeLang("en")} alt="" />
             <img className="lang"  src="/estonian.png" onClick={() => changeLang("ee")} alt="" />
           </Container>
-        </Navbar>
+      </Navbar>
 
 
        <Routes>
@@ -58,13 +59,27 @@ function App() {
         <Route path="contact" element={ <ContactUs /> } />
         <Route path="admin" element={ <AdminHome /> } />
         <Route path="admin/add-product" element={ <AddProduct /> } />
-        <Route path="admin/edit-product" element={ <EditProduct /> } />
+        <Route path="admin/edit/:id" element={ <EditProduct /> } />
         <Route path="admin/maintain-products" element={ <MaintainProducts /> } />
         <Route path="admin/maintain-shops" element={ <MaintainShops /> } />
         <Route path="admin/maintain-categories" element={ <MaintainCategories /> } />
+        <Route path="*" element={ <NotFound /> } />
       </Routes>
     </div>
   );
 }
 
 export default App;
+
+// 9 - toimumist varasemalt
+// 10 - 29.03 täna
+// 11- 31.03 reede
+// 12- 03.04 esmaspäev
+// 13 - 05.04 ---> 06.04 neljapäev
+// 14 - 10.04
+// 15 - 12.04
+// 16 - 14.04
+// 17 - 17.04
+// 18 - 26.04
+
+// 26.04 <--- 70ak/h
