@@ -1,9 +1,28 @@
-import React from 'react'
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
 
-function ContactUs() {
+export const ContactUs = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_fum24bj', 'template_ld2lsyd', form.current, 'Xbn0xj_4LjNugxYGl')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
   return (
-    <div>ContactUs</div>
-  )
-}
-
-export default ContactUs
+    <form className="contact" ref={form} onSubmit={sendEmail}>
+       <TextField name="from_name" label="Name" variant="outlined" /> <br /><br />
+       <TextField name="from_email" label="Email" variant="outlined" /> <br /><br />
+       <TextField name="message" label="Message" variant="outlined" /> <br /><br />
+       <Button type="submit" variant="contained">Send</Button>
+    </form>
+  );
+};

@@ -1,5 +1,6 @@
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react' // <---- useState importida
 import productsFromFile from "../../data/products.json";
+import { ToastContainer, toast } from 'react-toastify';
 
 function AddProduct() {
   const idRef = useRef();
@@ -9,6 +10,7 @@ function AddProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
+  const [isUnique, setUnique] = useState(true); // <------------
 
   const add = () => {
     productsFromFile.push({
@@ -27,15 +29,25 @@ function AddProduct() {
     categoryRef.current.value = "";
     descriptionRef.current.value = "";
     activeRef.current.checked = false;
-    // toast.success("Toode edukalt lisatud!");
+    toast.success("Toode edukalt lisatud!");
   }
 
   // KODUS: ID unikaalsus
+  const checkIdUniqueness = () => { // --
+    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    if (product === undefined) {
+      setUnique(true);
+    } else {
+      setUnique(false);
+      toast.error("Id pole unikaalne!");
+    }
+  } // --
 
   return ( 
     <div>
+      {isUnique === false && <div>Id ei ole unikaalne!</div>}       {/* <--- */}
       <label>New id</label> <br />
-      <input ref={idRef} type="number" /> <br />
+      <input onChange={checkIdUniqueness} ref={idRef} type="number" /> <br />
       <label>New product</label> <br />
       <input ref={nameRef} type="text" /> <br />
       <label>New price</label> <br />
@@ -48,7 +60,8 @@ function AddProduct() {
       <input ref={descriptionRef}type="text" /> <br />
       <label>Active</label> <br />
       <input ref={activeRef} type="checkbox" /> <br />
-      <button onClick={add}>Add</button> <br />
+      <button disabled={isUnique === false} onClick={add}>Add</button> <br />
+      <ToastContainer />
     </div>
   )
 }

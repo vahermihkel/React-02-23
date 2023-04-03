@@ -7,7 +7,7 @@ import './App.css';
 import HomePage from './pages/global/HomePage';
 import Cart from './pages/global/Cart';
 import Shops from './pages/global/Shops';
-import ContactUs from './pages/global/ContactUs';
+import { ContactUs } from './pages/global/ContactUs';
 import AdminHome from './pages/admin/AdminHome';
 import AddProduct from './pages/admin/AddProduct';
 import EditProduct from './pages/admin/EditProduct';
@@ -76,10 +76,10 @@ export default App;
 // 11- 31.03 reede
 // 12- 03.04 esmaspäev
 // 13 - 05.04 ---> 06.04 neljapäev
-// 14 - 10.04
-// 15 - 12.04
-// 16 - 14.04
-// 17 - 17.04
-// 18 - 26.04
+// 14 - E 10.04
+// 15 - N 13.04
+// 16 - E 17.04
+// 17 - N 20.04
+// 18 - N 04.05
 
-// 26.04 <--- 70ak/h
+// 26.04 <--- allkirjastamiseks päev
