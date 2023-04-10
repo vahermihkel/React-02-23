@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react' // <---- useState importida
-import productsFromFile from "../../data/products.json";
+import React, { useEffect, useRef, useState } from 'react' 
+// import productsFromFile from "../../data/products.json";
 import { ToastContainer, toast } from 'react-toastify';
+import config from "../../data/config.json";
 
 function AddProduct() {
   const idRef = useRef();
@@ -10,10 +11,31 @@ function AddProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
-  const [isUnique, setUnique] = useState(true); // <------------
+  const [isUnique, setUnique] = useState(true); 
+  const [dbProducts, setDbProducts] = useState([]);
+
+  useEffect(() => {                                                      
+    fetch(config.productsDbUrl)
+      .then(response => response.json())
+      .then(json => {
+        setDbProducts(json || []);
+      })
+  }, []);
 
   const add = () => {
-    productsFromFile.push({
+    if (idRef.current.value === "") {
+      toast.error("Ei saa lisada tühja ID-ga!");
+      return;
+    }
+    if (nameRef.current.value === "") {
+      toast.error("Ei saa lisada tühja nimega!");
+      return;
+    }
+    if (priceRef.current.value === "") {
+      toast.error("Ei saa lisada tühja hinnaga!");
+      return;
+    }
+    dbProducts.push({
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value),
@@ -30,18 +52,18 @@ function AddProduct() {
     descriptionRef.current.value = "";
     activeRef.current.checked = false;
     toast.success("Toode edukalt lisatud!");
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)});
   }
 
-  // KODUS: ID unikaalsus
-  const checkIdUniqueness = () => { // --
-    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+  const checkIdUniqueness = () => { 
+    const product = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
       setUnique(true);
     } else {
       setUnique(false);
       toast.error("Id pole unikaalne!");
     }
-  } // --
+  } 
 
   return ( 
     <div>

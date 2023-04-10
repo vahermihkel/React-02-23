@@ -1,10 +1,13 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom' // Link, useParams --> 
 //    react-router-dom, sest tegemist on URL ja navigeerimisega
-import productsFromFile from "../../data/products.json";
+// import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 
 function EditProduct() {
-  const { id } = useParams();
+  const { id } = useParams();  
+  const [dbProducts, setDbProducts] = useState([]);
+
   // ENNE VEEBIPOES: const leitud = productsFromFile[id];       productsFromFile[93.876.610] 
   //  kui on kandilised sulud, see tähendab järjekorranumbri alusel leidmiseks
   // .find vs .filter ---> küsivad mis on tingimus
@@ -12,8 +15,8 @@ function EditProduct() {
   // .filter annab mulle kõik kellel tingimus vastab
   // const found = productsFromFilter.filter(element.id === id)[0]
                                                //  93876610 === "93876610"
-  const found = productsFromFile.find(element => element.id === Number(id)); // .find    .filter / .sort / .map / .forEach
-  const index = productsFromFile.findIndex(element => element.id === Number(id));
+  const found = dbProducts.find(element => element.id === Number(id)); // .find    .filter / .sort / .map / .forEach
+  const index = dbProducts.findIndex(element => element.id === Number(id));
   // !==    ! - keerab vastupidiseks, ei võrdu
 // ===    vasak ja parem pool võrduvad
 // !==    vasak ja parem pool ei võrdu
@@ -28,11 +31,28 @@ function EditProduct() {
   const categoryRef = useRef();
   const descriptionRef = useRef();
   const activeRef = useRef();
-  const navigate = useNavigate(); // koos impordiga (react-router-dom)
+  const navigate = useNavigate();
   const [isUnique, setUnique] = useState(true);
 
+  useEffect(() => {                                                      
+    fetch(config.productsDbUrl)
+      .then(response => response.json())
+      .then(json => {
+        setDbProducts(json || []);
+      })
+  }, []);
+
   const edit = () => {
-    productsFromFile[index] = {
+    if (idRef.current.value === "") {
+      return;
+    }
+    if (nameRef.current.value === "") {
+      return;
+    }
+    if (priceRef.current.value === "") {
+      return;
+    }
+    dbProducts[index] = {
       "id": Number(idRef.current.value),
       "name": nameRef.current.value,
       "price": Number(priceRef.current.value),
@@ -41,13 +61,19 @@ function EditProduct() {
       "description": descriptionRef.current.value,
       "active": activeRef.current.checked
     }
-    navigate("/admin/maintain-products");
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)})
+      .then(res => res.json())
+      .then(() => navigate("/admin/maintain-products"));
     // productsFromFile[5] = updatedProduct;
     // ["Nobe", "BMW", "Tesla"][0] = "Audi";
   }
 
   const checkIdUniqueness = () => {
-    const product = productsFromFile.find(element => element.id === Number(idRef.current.value));
+    if (idRef.current.value === id) {
+      setUnique(true);
+      return;
+    }
+    const product = dbProducts.find(element => element.id === Number(idRef.current.value));
     if (product === undefined) {
       setUnique(true);
     } else {

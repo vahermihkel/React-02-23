@@ -15,6 +15,8 @@ import MaintainProducts from './pages/admin/MaintainProducts';
 import MaintainShops from './pages/admin/MaintainShops';
 import MaintainCategories from './pages/admin/MaintainCategories';
 import NotFound from './pages/global/NotFound';
+import SingleProduct from './pages/global/SingleProduct';
+
 
 function App() {  
   // Firebase üles ---> standartne
@@ -57,6 +59,7 @@ function App() {
         <Route path="cart" element={ <Cart /> } />
         <Route path="shops" element={ <Shops /> } />
         <Route path="contact" element={ <ContactUs /> } />
+        <Route path="product/:id" element={ <SingleProduct /> } />
         <Route path="admin" element={ <AdminHome /> } />
         <Route path="admin/add-product" element={ <AddProduct /> } />
         <Route path="admin/edit/:id" element={ <EditProduct /> } />

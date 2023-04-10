@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import "../../css/Cart.css";
 import Button from '@mui/material/Button';
 
 function Cart() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const [parcelMachines, setParcelMachines] = useState([]);
+
+  useEffect(() => {
+    fetch("https://www.omniva.ee/locations.json")
+      .then(res => res.json())
+      .then(json => setParcelMachines(json))
+  }, []);
 
   const emptyCart = () => {
     setCart([]);
@@ -66,6 +73,7 @@ function Cart() {
       {cart.length > 0 &&
         <div className="cart-bottom">
           <div className="sum">Subtotal: {summary()} €</div>
+          <select>{parcelMachines.filter(pm => pm.A0_NAME === "EE").map(pm => <option key={pm.NAME}>{pm.NAME}</option>)}</select>
         </div>
       }
     </div>

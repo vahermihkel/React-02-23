@@ -1,18 +1,36 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom';
-import productsFromFile from "../../data/products.json";
+// import productsFromFile from "../../data/products.json";
+import config from "../../data/config.json";
 
 function MaintainProducts() {
-  const [products, setProducts] = useState(productsFromFile);
+  const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
   const searchedRef = useRef();
 
-  const remove = (index) => {
-    productsFromFile.splice(index,1); // kustutan siit, sest siis kustub ka avalehel
-    setProducts(productsFromFile.slice());
+  useEffect(() => {                                                      
+    fetch(config.productsDbUrl)
+      .then(response => response.json())
+      .then(json => {
+        setProducts(json || []); 
+        setDbProducts(json || []);
+      })
+  }, []);
+
+  //     0         1         2
+  // [{"Ebay"}, {"Ebay"}, {"Ebay"}]
+  const remove = (productId) => {
+    // 244 toodet
+    // index = 40
+    const index = dbProducts.findIndex(element => element.id === productId);
+    dbProducts.splice(index,1); // kustutan siit, sest siis kustub ka avalehel
+    // setProducts(dbProducts.slice());
+    fetch(config.productsDbUrl, {"method": "PUT", "body": JSON.stringify(dbProducts)});
+    searchFromProducts();
   }
 
   const searchFromProducts = () => {
-    const result = productsFromFile.filter(element => 
+    const result = dbProducts.filter(element => 
       element.name.toLowerCase().includes(searchedRef.current.value.toLowerCase()));
     setProducts(result);
   }
@@ -22,7 +40,7 @@ function MaintainProducts() {
       <input onChange={searchFromProducts} ref={searchedRef} type="text" />
       <div>{products.length} pcs</div>
       {products.map((element, index) => 
-        <div>
+        <div key={index}>
           <img src={element.image} alt="" />
           <div>{element.id}</div>
           <div>{element.name}</div>
@@ -31,7 +49,7 @@ function MaintainProducts() {
           <div>{element.category}</div>
           <div>{element.description}</div>
           <div>{element.active}</div>
-          <button onClick={() => remove(index)}>Kustuta</button>
+          <button onClick={() => remove(element.id)}>Kustuta</button>
           <Link to={"/admin/edit/" + element.id}>
             <button>Muuda</button>
           </Link>
