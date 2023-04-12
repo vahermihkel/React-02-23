@@ -32,7 +32,7 @@ function SingleProduct() {
           <img src={found.image} alt="" />
           <div>ID:{found.id} </div>
           <div>Name: {found.name}</div>
-          <div>Description:..</div>      
+          <div>Description: {found.description}</div>      
           <div>Category: {found.category}</div>
           <div>Price: {found.price}</div>
         </div>}

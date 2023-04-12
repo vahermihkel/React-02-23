@@ -13,8 +13,13 @@ function AddProduct() {
   const activeRef = useRef();
   const [isUnique, setUnique] = useState(true); 
   const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
 
-  useEffect(() => {                                                      
+  useEffect(() => {    
+    fetch(config.categoriesDbUrl)
+      .then(response => response.json())
+      .then(json => setCategories(json || []))
+
     fetch(config.productsDbUrl)
       .then(response => response.json())
       .then(json => {
@@ -33,6 +38,14 @@ function AddProduct() {
     }
     if (priceRef.current.value === "") {
       toast.error("Ei saa lisada tühja hinnaga!");
+      return;
+    }
+    if (imageRef.current.value.includes(" ")) {
+      toast.error("Ei saa lisada pildi URLi tühikuga!");
+      return;
+    }
+    if (nameRef.current.value[0].toLowerCase() === nameRef.current.value[0]) {
+      toast.error("Ei saa nime väikse algustähega!");
       return;
     }
     dbProducts.push({
@@ -77,7 +90,10 @@ function AddProduct() {
       <label>New image</label> <br />
       <input ref={imageRef} type="text" /> <br />
       <label>New category</label> <br />
-      <input ref={categoryRef} type="text" /> <br />
+      {/* <input ref={categoryRef} type="text" /> <br /> */}
+      <select ref={categoryRef}>
+        {categories.map(element => <option key={element.name}>{element.name}</option> )}
+      </select> <br />
       <label>Description</label> <br />
       <input ref={descriptionRef}type="text" /> <br />
       <label>Active</label> <br />

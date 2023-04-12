@@ -1,3 +1,6 @@
+import { useEffect, useState } from 'react';
+import config from "../data/config.json"
+
 import L from 'leaflet';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
@@ -14,6 +17,16 @@ L.Marker.prototype.options.icon = DefaultIcon;
 
 function Map(props) { 
 
+  const [shops, setShops] = useState([]);
+
+  useEffect(() => {
+    fetch(config.shopsDbUrl)
+    .then (res => res.json())
+    .then (json => {      
+      setShops(json || []);
+    })
+  }, []);
+
   return (
   <div>
 
@@ -23,7 +36,7 @@ function Map(props) {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      <Marker position={[59.4219, 24.7944]}>
+      {/* <Marker position={[59.4219, 24.7944]}>
         <Popup>
           Ülemiste keskus. <br /> Avatud 9-20
         </Popup>
@@ -37,7 +50,14 @@ function Map(props) {
         <Popup>
           Tasku keskus. <br /> Avatud 9-21
         </Popup>
-      </Marker>
+      </Marker> */}
+      {shops.map(element => 
+         <Marker position={[element.latitude, element.longitude]}>
+          <Popup>
+            {element.name}. <br /> Avatud {element.openTime}
+          </Popup>
+        </Marker>
+        )}
     </MapContainer>
   </div>)
 }

@@ -89,7 +89,7 @@ function HomePage() {
       {
         categories.map(category => <button onClick={() => filterProducts(category.name)}>{category.name}</button>)
       }
-      {products.map(element => 
+      {products.filter(element => element.active === true).map(element => 
         <div key={element.id}>
           <Link to={"/product/" + element.id}>
             <img src={element.image} alt="" />
