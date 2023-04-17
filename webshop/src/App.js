@@ -60,7 +60,11 @@ export default App;
 // 14 - E 10.04
 // 15 - N 13.04
 // 16 - E 17.04
-// 17 - N 20.04
-// 18 - N 04.05
+// 17 - E 24.04
+// 18 - K 10.05   9.00-10.30
+
+// 1. Reactis
+// 2. Firebase-i üles pandud
+// ei pea olema lõpuni valmis - võime koos lahendada poolikuid asju
 
 // 26.04 <--- allkirjastamiseks päev
